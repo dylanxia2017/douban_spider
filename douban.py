@@ -16,7 +16,7 @@ import json
 
 
 session = requests.session()
-
+## 登录豆瓣页面
 def login(account_name, password):
     post_url = 'https://accounts.douban.com/j/mobile/login/basic'
     headers = {
@@ -41,7 +41,7 @@ def login(account_name, password):
         print(res_json)
         print("登录失败")
 
-
+## 获取观众个人页面的链接
 def spider_movie(page_num):
     # 通过查看用户个人信息来判断是否已经登录
     headers = {
@@ -73,7 +73,7 @@ def spider_movie(page_num):
     return user_links
 
 
-
+## 根据观众的链接来挖掘观众的信息
 def batch_spider():
     headers = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36'
@@ -106,7 +106,7 @@ def batch_spider():
                         f2.writelines("%s\n" % loc)
 
 
-
+## 观众有正在观看，已经观看过的等等，挖掘这部分人群的个人信息
 def spider_people(page_num):
     headers = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36'
@@ -135,6 +135,7 @@ def spider_people(page_num):
             f3.writelines("%s\n" % loc)
 
 
+## 爬取评论的链接
 def get_review(page_num):
     headers = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36'
@@ -163,7 +164,7 @@ def get_review(page_num):
                 filehandle2.writelines("%s\n" % url)
 
 
-
+## 爬取评论的内容
 def spider_review():
     headers = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36'
@@ -195,7 +196,6 @@ def spider_review():
 
 
 if __name__ == '__main__':
-    login("15267862911","xjx1072362067")
     # spider_review()
     print("结束")
 
